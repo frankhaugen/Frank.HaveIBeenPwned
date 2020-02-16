@@ -37,7 +37,7 @@ namespace HIBP.Toolkit
 
             using (var client = _clientFactory.CreateClient())
             {
-                client.BaseAddress = new Uri($"https://api.pwnedpasswords.com/range");
+                client.BaseAddress = new Uri($"https://api.pwnedpasswords.com/range/");
                 var response = await client.GetStringAsync($"{output.Sha1Prefix}");
                 var result = response.Split('\n').Select(l => l.Split(':')).ToDictionary(l => l[0], l => Convert.ToInt32(l[1]));
 
@@ -60,7 +60,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{Service.PasteAccount.ToString()}/{username}");
+                var respose = await client.GetStringAsync($"{client.BaseAddress}/pasteaccount/{username}");
 
                 try
                 {
@@ -93,7 +93,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{Service.Breachs.ToString()}/{website}");
+                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.Breach.ToString().ToLowerInvariant()}/{website}");
 
                 try
                 {
@@ -121,7 +121,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{Service.BreachAccount.ToString()}/{account}?truncateResponse=false");
+                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.BreachedAccount.ToString().ToLowerInvariant()}/{account}?truncateResponse=false");
 
                 try
                 {
@@ -129,7 +129,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a list of pastes");
+                    _logger.LogInformation(e, "Response string was not a list of pastes");
                 }
                 try
                 {
@@ -138,7 +138,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a paste");
+                    _logger.LogInformation(e, "Response string was not a paste");
                 }
 
                 return null;
@@ -149,7 +149,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{Service.Breachs.ToString()}");
+                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.Breaches.ToString().ToLowerInvariant()}");
 
                 try
                 {
@@ -177,7 +177,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{Service.DataClasses.ToString()}");
+                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.DataClasses.ToString()}");
 
                 try
                 {

@@ -14,6 +14,7 @@ namespace HIBP.Toolkit
             {
                 client.DefaultRequestHeaders.Add("hibp-api-key", apiKey);
                 client.BaseAddress = new Uri($"https://haveibeenpwned.com/api/v3");
+                client.DefaultRequestHeaders.Add("user-agent", "HIBP.Toolkit");
             });
         }
 

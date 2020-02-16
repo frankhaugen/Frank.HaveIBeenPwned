@@ -2,9 +2,10 @@
 {
     public enum Service
     {
-        Breachs,
+        Breach,
+        Breaches,
         DataClasses,
         PasteAccount,
-        BreachAccount
+        BreachedAccount
     }
 }
