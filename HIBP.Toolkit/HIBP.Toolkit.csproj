@@ -24,6 +24,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <Description>A handy toolkit to easy interaction with the "Have I Been Pwned" website</Description>
+
+    <Version>*</Version>
   </PropertyGroup>
 
   <ItemGroup>
