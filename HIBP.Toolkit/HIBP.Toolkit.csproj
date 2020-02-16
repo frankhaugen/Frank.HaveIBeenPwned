@@ -25,7 +25,7 @@
 
     <Description>A handy toolkit to easy interaction with the "Have I Been Pwned" website</Description>
 
-    <Version>*</Version>
+    <Version>0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
