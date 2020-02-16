@@ -10,21 +10,25 @@ jobs:
     - uses: actions/checkout@v2
     - name: Replace tokens
       uses: cschleiden/replace-tokens@v1.0
+      with:
+        files: "**/*Tests.cs"
       env:
         APIKEY: ${{ secrets.ApiKey }}
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
+    - name: Restore with dotnet
+      run: dotnet restore
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test
+      run: dotnet test --no-buid --no-restore
     - name: Publish NuGet
       uses: rohith/publish-nuget@v2.0.0
       with:
       # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: "/HIBP.Toolkit/HIBP.Toolkit.csproj"
+        PROJECT_FILE_PATH: HIBP.Toolkit/HIBP.Toolkit.csproj
         # Filepath containing version info, relative to root of repository. Defaults to `PROJECT_FILE_PATH` if not specified
         # VERSION_FILE_PATH: # optional
         # Regex (with version in a capturing group) to extract the version from `VERSION_FILE_PATH`
