@@ -23,7 +23,7 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-buid --no-restore
+      run: dotnet test --no-build --no-restore
     - name: Publish NuGet
       uses: rohith/publish-nuget@v2.0.0
       with:
