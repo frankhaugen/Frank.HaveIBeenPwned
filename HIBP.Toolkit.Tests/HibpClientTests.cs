@@ -21,7 +21,7 @@ namespace HIBP.Toolkit.Tests
         private const string username = "frank@gmail.com";
         private const string password = "Password";
         private const string website = "adobe";
-        private const string apiKey = "<<apikey>>";
+        private const string apiKey = "#{APIKEY}#";
 
         public HibpClientTests(ITestOutputHelper outputHelper)
         {
