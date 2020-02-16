@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace HIBP.Toolkit
 {
@@ -12,13 +13,24 @@ namespace HIBP.Toolkit
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<HibpClient> _logger;
+        private readonly HibpConfiguration _options;
 
         private const string _basePath = "https://haveibeenpwned.com/api/v3";
 
-        public HibpClient(IHttpClientFactory clientFactory, ILogger<HibpClient> logger)
+        public HibpClient(IHttpClientFactory clientFactory, ILogger<HibpClient> logger, IOptions<HibpConfiguration> options)
         {
             _clientFactory = clientFactory;
             _logger = logger;
+            _options = options.Value;
+        }
+
+        private HttpClient HttpClient()
+        {
+            var output = _clientFactory.CreateClient();
+            output.BaseAddress = _options.BaseAddress;
+            output.DefaultRequestHeaders.Add("hibp-api-key", _options.ApiKey);
+            output.DefaultRequestHeaders.Add("user-agent", _options.ApplicationName);
+            return output;
         }
 
         public async Task<bool> CheckPassword(string password, int threshold = 0)
@@ -37,10 +49,9 @@ namespace HIBP.Toolkit
                 Sha1Hash = Hash.GetSha1(password)
             };
 
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
-                client.BaseAddress = new Uri($"https://api.pwnedpasswords.com/range/");
-                var response = await client.GetStringAsync($"{output.Sha1Prefix}");
+                var response = await client.GetStringAsync($"{_options.PwnedPasswordAddress}/{output.Sha1Prefix}");
                 var result = response.Split('\n').Select(l => l.Split(':')).ToDictionary(l => l[0], l => Convert.ToInt32(l[1]));
 
                 output.IsPwned = result.ContainsKey(output.Sha2Suffix);
@@ -60,7 +71,7 @@ namespace HIBP.Toolkit
 
         public async Task<IEnumerable<Paste>> GetPastes(string username)
         {
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
                 var respose = await client.GetStringAsync($"{_basePath}/pasteaccount/{username}");
 
@@ -93,7 +104,7 @@ namespace HIBP.Toolkit
 
         public async Task<IEnumerable<Breach>> GetBreachesForSite(string website)
         {
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
                 var respose = await client.GetStringAsync($"{_basePath}/{Service.Breach.ToString().ToLowerInvariant()}/{website}");
 
@@ -121,7 +132,7 @@ namespace HIBP.Toolkit
 
         public async Task<IEnumerable<Breach>> GetBreachesForAccount(string account)
         {
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
                 var respose = await client.GetStringAsync($"{_basePath}/{Service.BreachedAccount.ToString().ToLowerInvariant()}/{account}?truncateResponse=false");
 
@@ -149,7 +160,7 @@ namespace HIBP.Toolkit
 
         public async Task<IEnumerable<Breach>> GetAllBreaches()
         {
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
                 var respose = await client.GetStringAsync($"{_basePath}/{Service.Breaches.ToString().ToLowerInvariant()}");
 
@@ -177,7 +188,7 @@ namespace HIBP.Toolkit
 
         public async Task<IEnumerable<string>> GetDataClasses()
         {
-            using (var client = _clientFactory.CreateClient())
+            using (var client = HttpClient())
             {
                 var respose = await client.GetStringAsync($"{_basePath}/{Service.DataClasses.ToString()}");
 
