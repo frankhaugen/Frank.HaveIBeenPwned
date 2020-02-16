@@ -3,6 +3,9 @@ using System;
 
 namespace HIBP.Toolkit
 {
+    /// <summary>
+    /// This sets up all you need to utilize the Have I beeen Pwned Toolkit. Just enter your API key
+    /// </summary>
     public static class IServiceCollectionExtensions
     {
         public static void AddHibpToolkit(this IServiceCollection services, string apiKey)
@@ -13,7 +16,6 @@ namespace HIBP.Toolkit
             services.AddHttpClient("Have I been Pwned", client =>
             {
                 client.DefaultRequestHeaders.Add("hibp-api-key", apiKey);
-                client.BaseAddress = new Uri($"https://haveibeenpwned.com/api/v3");
                 client.DefaultRequestHeaders.Add("user-agent", "HIBP.Toolkit");
             });
         }

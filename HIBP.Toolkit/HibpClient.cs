@@ -13,6 +13,8 @@ namespace HIBP.Toolkit
         private readonly IHttpClientFactory _clientFactory;
         private readonly ILogger<HibpClient> _logger;
 
+        private const string _basePath = "https://haveibeenpwned.com/api/v3";
+
         public HibpClient(IHttpClientFactory clientFactory, ILogger<HibpClient> logger)
         {
             _clientFactory = clientFactory;
@@ -60,7 +62,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{client.BaseAddress}/pasteaccount/{username}");
+                var respose = await client.GetStringAsync($"{_basePath}/pasteaccount/{username}");
 
                 try
                 {
@@ -68,7 +70,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a list of pastes");
+                    _logger.LogError(e, "Response string was not a list of pastes");
                 }
                 try
                 {
@@ -77,7 +79,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a paste");
+                    _logger.LogError(e, "Response string was not a paste");
                 }
 
                 return null;
@@ -93,7 +95,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.Breach.ToString().ToLowerInvariant()}/{website}");
+                var respose = await client.GetStringAsync($"{_basePath}/{Service.Breach.ToString().ToLowerInvariant()}/{website}");
 
                 try
                 {
@@ -101,7 +103,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a list of pastes");
+                    _logger.LogError(e, "Response string was not a list of pastes");
                 }
                 try
                 {
@@ -110,7 +112,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a paste");
+                    _logger.LogError(e, "Response string was not a paste");
                 }
 
                 return null;
@@ -121,7 +123,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.BreachedAccount.ToString().ToLowerInvariant()}/{account}?truncateResponse=false");
+                var respose = await client.GetStringAsync($"{_basePath}/{Service.BreachedAccount.ToString().ToLowerInvariant()}/{account}?truncateResponse=false");
 
                 try
                 {
@@ -149,7 +151,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.Breaches.ToString().ToLowerInvariant()}");
+                var respose = await client.GetStringAsync($"{_basePath}/{Service.Breaches.ToString().ToLowerInvariant()}");
 
                 try
                 {
@@ -157,7 +159,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a list of breaches");
+                    _logger.LogError(e, "Response string was not a list of breaches");
                 }
                 try
                 {
@@ -166,7 +168,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a breach");
+                    _logger.LogError(e, "Response string was not a breach");
                 }
 
                 return null;
@@ -177,7 +179,7 @@ namespace HIBP.Toolkit
         {
             using (var client = _clientFactory.CreateClient())
             {
-                var respose = await client.GetStringAsync($"{client.BaseAddress}/{Service.DataClasses.ToString()}");
+                var respose = await client.GetStringAsync($"{_basePath}/{Service.DataClasses.ToString()}");
 
                 try
                 {
@@ -185,7 +187,7 @@ namespace HIBP.Toolkit
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation("Response string was not a list of breaches");
+                    _logger.LogError(e, "Response string was not a list of breaches");
                 }
 
                 return null;

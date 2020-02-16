@@ -23,7 +23,7 @@
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-    <Description>A handy toolkit to easy interaction with the "Have I Been Pwned" website</Description>
+    <Description>A handy toolkit to easy interaction with the "Have I Been Pwned" website. You can collect relevant breach data, pastes and check if a password is compromised. This uses Dependency Injection, and require your HIBP Api Key to be added in startup</Description>
 
     <Version>0.0</Version>
   </PropertyGroup>
