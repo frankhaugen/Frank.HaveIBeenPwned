@@ -1,14 +1,14 @@
-using System;
-using System.Linq;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using NSubstitute;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-//[assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 
 namespace HIBP.Toolkit.Tests
 {
@@ -16,36 +16,28 @@ namespace HIBP.Toolkit.Tests
     {
         private IHttpClientFactory subHttpClientFactory;
         private ILogger<HibpClient> subLogger;
+        private IOptions<HibpConfiguration> subOptions;
         private readonly ITestOutputHelper _outputHelper;
 
         private const string username = "frank@gmail.com";
         private const string password = "Password";
         private const string website = "adobe";
-        private const string apiKey = "#{APIKEY}#";
 
         public HibpClientTests(ITestOutputHelper outputHelper)
         {
             _outputHelper = outputHelper;
+            subOptions = Options.Create(new HibpConfiguration()
+            {
+                ApiKey = "#{APIKEY}#"
+            });
             subHttpClientFactory = Substitute.For<IHttpClientFactory>();
             subLogger = outputHelper.BuildLoggerFor<HibpClient>();
         }
 
         private HibpClient CreateHibpClient()
         {
-            subHttpClientFactory.CreateClient().Returns(CreateHttpClient());
-            return new HibpClient(
-                subHttpClientFactory,
-                subLogger);
-        }
-
-        private HttpClient CreateHttpClient()
-        {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("hibp-api-key", apiKey);
-            client.DefaultRequestHeaders.Add("user-agent", "HIBP.Toolkit");
-            client.BaseAddress = new Uri($"https://haveibeenpwned.com/api/v3");
-
-            return client;
+            subHttpClientFactory.CreateClient().Returns(new HttpClient());
+            return new HibpClient(subHttpClientFactory, subLogger, subOptions);
         }
 
         [Fact]
