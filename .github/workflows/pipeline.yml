@@ -1,0 +1,37 @@
+name: Pipeline
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Replace tokens
+      uses: cschleiden/replace-tokens@v1.0
+      env:
+        APIKEY: ${{ secrets.ApiKey }}
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test
+    - name: Publish NuGet
+      uses: rohith/publish-nuget@v2.0.0
+      with:
+      # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: "/HIBP.Toolkit/HIBP.Toolkit.csproj"
+        # Filepath containing version info, relative to root of repository. Defaults to `PROJECT_FILE_PATH` if not specified
+        # VERSION_FILE_PATH: # optional
+        # Regex (with version in a capturing group) to extract the version from `VERSION_FILE_PATH`
+        ##VERSION_REGEX:  # optional, default is <Version>(.*)<\/Version>
+        # Whether to create a tag when there's a version change or not
+        ##TAG_COMMIT: # optional, default is true
+        # Format of the tag, `*` is the placeholder for actual version
+        ##TAG_FORMAT: # optional, default is v*
+        # API key for the NuGet feed
+        NUGET_KEY: ${{ secrets.NugetKey }} # optional
