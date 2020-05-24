@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HIBP.Toolkit
+namespace Frank.HaveIBeenPwned
 {
     public class Breach
     {

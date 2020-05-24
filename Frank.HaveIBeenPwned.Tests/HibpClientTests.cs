@@ -1,22 +1,19 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using NSubstitute;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
 
-namespace HIBP.Toolkit.Tests
+namespace Frank.HaveIBeenPwned.Tests
 {
     public class HibpClientTests
     {
-        private IHttpClientFactory subHttpClientFactory;
-        private ILogger<HibpClient> subLogger;
-        private IOptions<HibpConfiguration> subOptions;
+        private ILogger<HaveIBeenPwnedClient> subLogger;
+        private IOptions<HaveIBeenPwnedConfiguration> subOptions;
         private readonly ITestOutputHelper _outputHelper;
 
         private const string username = "frank@gmail.com";
@@ -26,18 +23,16 @@ namespace HIBP.Toolkit.Tests
         public HibpClientTests(ITestOutputHelper outputHelper)
         {
             _outputHelper = outputHelper;
-            subOptions = Options.Create(new HibpConfiguration()
+            subOptions = Options.Create(new HaveIBeenPwnedConfiguration()
             {
                 ApiKey = "#{APIKEY}#"
             });
-            subHttpClientFactory = Substitute.For<IHttpClientFactory>();
-            subLogger = outputHelper.BuildLoggerFor<HibpClient>();
+            subLogger = outputHelper.BuildLoggerFor<HaveIBeenPwnedClient>();
         }
 
-        private HibpClient CreateHibpClient()
+        private HaveIBeenPwnedClient CreateHibpClient()
         {
-            subHttpClientFactory.CreateClient().Returns(new HttpClient());
-            return new HibpClient(subHttpClientFactory, subLogger, subOptions);
+            return new HaveIBeenPwnedClient(new HaveIBeenPwnedConfiguration());
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HIBP.Toolkit
+namespace Frank.HaveIBeenPwned
 {
     public class Paste
     {

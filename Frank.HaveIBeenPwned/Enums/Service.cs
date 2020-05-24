@@ -1,4 +1,4 @@
-﻿namespace HIBP.Toolkit
+﻿namespace Frank.HaveIBeenPwned
 {
     public enum Service
     {

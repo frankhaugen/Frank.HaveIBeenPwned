@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HIBP.Toolkit", "HIBP.Toolkit\HIBP.Toolkit.csproj", "{0E08B205-0989-437E-AAB0-2A03E1E820A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frank.HaveIBeenPwned", "Frank.HaveIBeenPwned\Frank.HaveIBeenPwned.csproj", "{0E08B205-0989-437E-AAB0-2A03E1E820A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HIBP.Toolkit.Tests", "HIBP.Toolkit.Tests\HIBP.Toolkit.Tests.csproj", "{DFBBE5D5-04F5-4577-AEB8-C12910327B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frank.HaveIBeenPwned.Tests", "Frank.HaveIBeenPwned.Tests\Frank.HaveIBeenPwned.Tests.csproj", "{DFBBE5D5-04F5-4577-AEB8-C12910327B55}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{947E18E8-8D77-4032-9BA6-7735891EF511}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.HaveIBeenPwned.App", "Frank.HaveIBeenPwned.App\Frank.HaveIBeenPwned.App.csproj", "{663D9BCC-7C15-44CE-81E4-4BBEE752C581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.HaveIBeenPwned.Worker", "Frank.HaveIBeenPwned.Worker\Frank.HaveIBeenPwned.Worker.csproj", "{67092151-D3EB-4468-B334-376690E975AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,30 @@ Global
 		{DFBBE5D5-04F5-4577-AEB8-C12910327B55}.Release|x64.Build.0 = Release|Any CPU
 		{DFBBE5D5-04F5-4577-AEB8-C12910327B55}.Release|x86.ActiveCfg = Release|Any CPU
 		{DFBBE5D5-04F5-4577-AEB8-C12910327B55}.Release|x86.Build.0 = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|x64.Build.0 = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Debug|x86.Build.0 = Debug|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|x64.ActiveCfg = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|x64.Build.0 = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|x86.ActiveCfg = Release|Any CPU
+		{663D9BCC-7C15-44CE-81E4-4BBEE752C581}.Release|x86.Build.0 = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|x64.Build.0 = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{67092151-D3EB-4468-B334-376690E975AA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

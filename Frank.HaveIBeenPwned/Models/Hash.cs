@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace HIBP.Toolkit
+namespace Frank.HaveIBeenPwned
 {
     internal static class Hash
     {
