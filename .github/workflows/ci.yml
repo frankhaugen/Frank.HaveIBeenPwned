@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Replace tokens
+        uses: cschleiden/replace-tokens@v1.0
+        with:
+          files: "**/*Tests.cs"
+        env:
+          APIKEY: ${{ secrets.ApiKey }}
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore HIBP.Toolkit.sln
+
+      - name: Build
+        run: dotnet build HIBP.Toolkit.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test HIBP.Toolkit.sln --configuration Release --no-build --verbosity normal
