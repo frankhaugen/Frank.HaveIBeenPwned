@@ -2,7 +2,7 @@ name: Auto release from signal
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
 
 permissions:
   contents: write
